@@ -4,7 +4,6 @@ import com.ssau.study.dto.StudentPojo;
 import com.ssau.study.entity.Student;
 import com.ssau.study.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,13 +16,12 @@ import java.util.List;
 public class StudentService {
     private StudentRepository studentRepository;
 
-    @Autowired
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
     public List<StudentPojo> findAll() {
-        List<Student> students = studentRepository.findBy();
+        List<Student> students = studentRepository.findAll();
         return StudentPojo.convertStudentsToPojo(students);
     }
 

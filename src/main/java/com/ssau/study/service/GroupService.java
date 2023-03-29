@@ -7,7 +7,6 @@ import com.ssau.study.entity.Student;
 import com.ssau.study.repository.GroupRepository;
 import com.ssau.study.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -19,14 +18,13 @@ public class GroupService {
     private StudentRepository studentRepository;
     private GroupRepository groupRepository;
 
-    @Autowired
     public GroupService(StudentRepository studentRepository, GroupRepository groupRepository) {
         this.studentRepository = studentRepository;
         this.groupRepository = groupRepository;
     }
 
     public List<GroupPojo> findAll() {
-        List<Group> groups = groupRepository.findBy();
+        List<Group> groups = groupRepository.findAll();
         return GroupPojo.convertGroupsToPojo(groups);
     }
 
