@@ -53,13 +53,15 @@ public class StudentService {
         }
     }
 
-    public void updateStudent(long pk, StudentPojo pojo) {
+    public StudentPojo updateStudent(long pk, StudentPojo pojo) {
         Student student = studentRepository.findById(pk);
         if (student != null) {
             student.setName(pojo.getName());
             student.setNumber(pojo.getNumber());
             student.setBirthdate(pojo.getBirthdate());
             studentRepository.save(student);
+            return StudentPojo.fromEntity(student);
         }
+        return pojo;
     }
 }

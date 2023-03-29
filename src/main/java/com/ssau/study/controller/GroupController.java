@@ -63,12 +63,12 @@ public class GroupController {
     }
 
     @PutMapping("/{pk}")
-    public void updateGroup(@PathVariable long pk, @RequestBody GroupPojo pojo) {
-        groupService.updateGroup(pk, pojo);
+    public GroupPojo updateGroup(@PathVariable long pk, @RequestBody GroupPojo pojo) {
+        return groupService.updateGroup(pk, pojo);
     }
 
     @PutMapping("/{groupId}/students/{studentId}")
-    public void updateStudent(@PathVariable long groupId, @PathVariable long studentId, @RequestBody StudentPojo pojo) {
-        groupService.updateStudent(groupId, studentId, pojo);
+    public StudentPojo updateStudent(@PathVariable long groupId, @PathVariable long studentId, @RequestBody StudentPojo pojo) {
+        return groupService.updateStudent(groupId, studentId, pojo);
     }
 }

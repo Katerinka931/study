@@ -44,8 +44,8 @@ public class StudentController {
 
     @PutMapping("/{pk}")
     @IsAdmin
-    public void updateStudent(@PathVariable long pk, @Valid @RequestBody StudentPojo student) {
-        studentService.updateStudent(pk, student);
+    public StudentPojo updateStudent(@PathVariable long pk, @Valid @RequestBody StudentPojo student) {
+        return studentService.updateStudent(pk, student);
     }
 }
 

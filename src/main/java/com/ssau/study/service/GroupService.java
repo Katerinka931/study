@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
-import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class GroupService {
@@ -61,15 +61,17 @@ public class GroupService {
         return StudentPojo.fromEntity(student);
     }
 
-    public void updateGroup(long pk, GroupPojo pojo) {
+    public GroupPojo updateGroup(long pk, GroupPojo pojo) {
         Group group = groupRepository.findById(pk);
         if (group != null) {
             group.setName(pojo.getName());
             groupRepository.save(group);
+            return GroupPojo.fromEntity(group);
         }
+        return pojo;
     }
 
-    public void updateStudent(long groupId, long studentId, StudentPojo pojo) {
+    public StudentPojo updateStudent(long groupId, long studentId, StudentPojo pojo) {
         Student student = studentRepository.findById(studentId);
         if (student != null) {
             student.setName(pojo.getName());
@@ -77,6 +79,8 @@ public class GroupService {
             student.setNumber(pojo.getNumber());
             student.setGroup(groupRepository.findById(groupId));
             studentRepository.save(student);
+            return StudentPojo.fromEntity(student);
         }
+        return pojo;
     }
 }
