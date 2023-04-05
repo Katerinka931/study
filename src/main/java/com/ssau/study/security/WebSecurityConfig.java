@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -31,7 +31,7 @@ public class WebSecurityConfig {
                 .build();
         UserDetails admin = User.withUsername("admin")
                 .password(passwordEncoder().encode("password"))
-                .roles("ADMIN", "USER")
+                .roles("ADMIN")  //, "USER"
                 .build();
 
         return new InMemoryUserDetailsManager(user, admin);
@@ -43,8 +43,8 @@ public class WebSecurityConfig {
                 .httpBasic().and()
                 .csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/login").permitAll()
-                        .requestMatchers("/api/groups/**").hasRole("ADMIN")
+                                .requestMatchers("/", "/login").permitAll()
+                                .requestMatchers("/api/groups/**", "/api/students/**").permitAll()//.hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

@@ -15,13 +15,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class GroupService {
-    private StudentRepository studentRepository;
-    private GroupRepository groupRepository;
-
-    public GroupService(StudentRepository studentRepository, GroupRepository groupRepository) {
-        this.studentRepository = studentRepository;
-        this.groupRepository = groupRepository;
-    }
+    private final StudentRepository studentRepository;
+    private final GroupRepository groupRepository;
 
     public List<GroupPojo> findAll() {
         List<Group> groups = groupRepository.findAll();

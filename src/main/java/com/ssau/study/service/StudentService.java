@@ -4,21 +4,16 @@ import com.ssau.study.dto.StudentPojo;
 import com.ssau.study.entity.Student;
 import com.ssau.study.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
 @Service
-@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 @RequiredArgsConstructor
 public class StudentService {
-    private StudentRepository studentRepository;
 
-    public StudentService(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
+    private final StudentRepository studentRepository;
 
     public List<StudentPojo> findAll() {
         List<Student> students = studentRepository.findAll();

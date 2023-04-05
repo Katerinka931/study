@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/groups")
 public class GroupController {
@@ -22,6 +23,11 @@ public class GroupController {
     @GetMapping
     public List<GroupPojo> findAll() {
         return groupService.findAll();
+    }
+
+    @GetMapping("/id/{pk}")
+    public GroupPojo findById(@PathVariable long pk) {
+        return groupService.findById(pk);
     }
 
     @GetMapping("/{name}")

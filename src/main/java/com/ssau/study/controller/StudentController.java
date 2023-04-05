@@ -5,11 +5,11 @@ import com.ssau.study.dto.StudentPojo;
 import com.ssau.study.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/students")
 public class StudentController {
@@ -25,7 +25,7 @@ public class StudentController {
     }
 
     @GetMapping("/{name}")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public List<StudentPojo> findAllByName(@PathVariable String name) {
         return studentService.findAllByName(name);
     }
