@@ -4,6 +4,8 @@ import com.ssau.study.dto.GroupPojo;
 import com.ssau.study.dto.StudentPojo;
 import com.ssau.study.service.GroupService;
 import com.ssau.study.service.StudentService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -59,22 +61,40 @@ public class GroupController {
     }
 
     @PostMapping
-    public GroupPojo createGroup(@RequestBody GroupPojo pojo) {
-        return groupService.createGroup(pojo);
+    public ResponseEntity<GroupPojo> createGroup(@RequestBody GroupPojo pojo) {
+        try {
+            return new ResponseEntity<>(groupService.createGroup(pojo),HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/{groupId}/students")
-    public StudentPojo createStudent(@PathVariable long groupId, @RequestBody StudentPojo pojo) {
-        return groupService.createStudent(groupId, pojo);
+    public ResponseEntity<StudentPojo> createStudent(@PathVariable long groupId, @RequestBody StudentPojo pojo) {
+        try {
+            return new ResponseEntity<>(groupService.createStudent(groupId, pojo), HttpStatus.OK);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<>(HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/{pk}")
-    public GroupPojo updateGroup(@PathVariable long pk, @RequestBody GroupPojo pojo) {
-        return groupService.updateGroup(pk, pojo);
+    public ResponseEntity<GroupPojo> updateGroup(@PathVariable long pk, @RequestBody GroupPojo pojo) {
+        try {
+            return new ResponseEntity<>(groupService.updateGroup(pk, pojo), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/{groupId}/students/{studentId}")
-    public StudentPojo updateStudent(@PathVariable long groupId, @PathVariable long studentId, @RequestBody StudentPojo pojo) {
-        return groupService.updateStudent(groupId, studentId, pojo);
+    public ResponseEntity<StudentPojo> updateStudent(@PathVariable long groupId, @PathVariable long studentId, @RequestBody StudentPojo pojo) {
+        try {
+            return new ResponseEntity<>(groupService.updateStudent(groupId, studentId, pojo), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

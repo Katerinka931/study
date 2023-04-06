@@ -17,12 +17,12 @@ public class StudentService {
 
     public List<StudentPojo> findAll() {
         List<Student> students = studentRepository.findAll();
-        return StudentPojo.convertStudentsToPojo(students);
+        return StudentPojo.convertToPojoListWithGroups(students);
     }
 
     public List<StudentPojo> findAllByName(@PathVariable String name) {
         List<Student> students = studentRepository.findAllByName(name);
-        return StudentPojo.convertStudentsToPojo(students);
+        return StudentPojo.convertToPojoListWithGroups(students);
     }
 
     public StudentPojo findById(long pk) {

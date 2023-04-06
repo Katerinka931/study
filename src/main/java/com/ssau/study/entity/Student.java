@@ -14,9 +14,11 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(unique = true)
     private String name;
     @Temporal(TemporalType.DATE)
     private Date birthdate;
+    @Column(unique = true)
     private int number;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)

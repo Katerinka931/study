@@ -48,10 +48,13 @@ public class GroupService {
     }
 
     public StudentPojo createStudent(long groupId, StudentPojo pojo) {
+        if (pojo.getBirthdate() == null) {
+            throw new NullPointerException();
+        }
         Student student = StudentPojo.toEntity(pojo);
         student.setGroup(groupRepository.findById(groupId));
         studentRepository.save(student);
-        return StudentPojo.fromEntity(student);
+        return StudentPojo.fromEntity(student, student.getGroup().getId());
     }
 
     public GroupPojo updateGroup(long pk, GroupPojo pojo) {
@@ -72,7 +75,7 @@ public class GroupService {
             student.setNumber(pojo.getNumber());
             student.setGroup(groupRepository.findById(groupId));
             studentRepository.save(student);
-            return StudentPojo.fromEntity(student);
+            return StudentPojo.fromEntity(student, student.getGroup().getId());
         }
         return pojo;
     }

@@ -15,7 +15,7 @@ public class StudentPojo {
     private String name;
     private Date birthdate;
     private int number;
-    private int group_id;
+    private long group_id;
 
     public static StudentPojo fromEntity(Student student) {
         StudentPojo pojo = new StudentPojo();
@@ -23,6 +23,16 @@ public class StudentPojo {
         pojo.setName(student.getName());
         pojo.setBirthdate(student.getBirthdate());
         pojo.setNumber(student.getNumber());
+        return pojo;
+    }
+
+    public static StudentPojo fromEntity(Student student, long group_id) {
+        StudentPojo pojo = new StudentPojo();
+        pojo.setId(student.getId());
+        pojo.setName(student.getName());
+        pojo.setBirthdate(student.getBirthdate());
+        pojo.setNumber(student.getNumber());
+        pojo.setGroup_id(group_id);
         return pojo;
     }
 
@@ -39,6 +49,17 @@ public class StudentPojo {
         List<StudentPojo> pojoList = new ArrayList<>();
         for (Student student : students) {
             pojoList.add(StudentPojo.fromEntity(student));
+        }
+        return pojoList;
+    }
+
+    public static List<StudentPojo> convertToPojoListWithGroups(List<Student> students){
+        List<StudentPojo> pojoList = new ArrayList<>();
+        for (Student student : students) {
+            long id = 0;
+            if (student.getGroup() != null)
+                id = student.getGroup().getId();
+            pojoList.add(StudentPojo.fromEntity(student, id));
         }
         return pojoList;
     }
