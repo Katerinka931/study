@@ -15,6 +15,7 @@ public class StudentPojo {
     private String name;
     private Date birthdate;
     private int number;
+    private int group_id;
 
     public static StudentPojo fromEntity(Student student) {
         StudentPojo pojo = new StudentPojo();
