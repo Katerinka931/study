@@ -33,13 +33,11 @@ public class StudentController {
     }
 
     @PostMapping
-//    @IsAdmin
     public StudentPojo createStudent(@Valid @RequestBody StudentPojo student) {
         return studentService.createStudent(student);
     }
 
     @PutMapping("/{pk}")
-//    @IsAdmin
     public StudentPojo updateStudent(@PathVariable long pk, @Valid @RequestBody StudentPojo student) {
         return studentService.updateStudent(pk, student);
     }
