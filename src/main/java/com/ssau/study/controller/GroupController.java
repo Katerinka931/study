@@ -1,11 +1,13 @@
 package com.ssau.study.controller;
 
+import com.ssau.study.annotations.IsAdmin;
 import com.ssau.study.dto.GroupPojo;
 import com.ssau.study.dto.StudentPojo;
 import com.ssau.study.service.GroupService;
 import com.ssau.study.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,11 +40,13 @@ public class GroupController {
     }
 
     @GetMapping("/{groupId}/students")
+    @IsAdmin
     public List<StudentPojo> findAllStudents(@PathVariable long groupId) {
         return groupService.findStudentsByGroup(groupId);
     }
 
     @DeleteMapping("/{pk}")
+    @IsAdmin
     public boolean deleteGroup(@PathVariable long pk) {
         if (groupService.findById(pk) == null)
             return false;
@@ -52,6 +56,7 @@ public class GroupController {
     }
 
     @DeleteMapping("/students/{pk}")
+    @IsAdmin
     public boolean deleteStudent(@PathVariable long pk) {
         if (studentService.findById(pk) == null)
             return false;
@@ -61,6 +66,7 @@ public class GroupController {
     }
 
     @PostMapping
+    @IsAdmin
     public ResponseEntity<GroupPojo> createGroup(@RequestBody GroupPojo pojo) {
         try {
             return new ResponseEntity<>(groupService.createGroup(pojo),HttpStatus.OK);
@@ -70,6 +76,7 @@ public class GroupController {
     }
 
     @PostMapping("/{groupId}/students")
+    @IsAdmin
     public ResponseEntity<StudentPojo> createStudent(@PathVariable long groupId, @RequestBody StudentPojo pojo) {
         try {
             return new ResponseEntity<>(groupService.createStudent(groupId, pojo), HttpStatus.OK);
@@ -81,6 +88,7 @@ public class GroupController {
     }
 
     @PutMapping("/{pk}")
+    @IsAdmin
     public ResponseEntity<GroupPojo> updateGroup(@PathVariable long pk, @RequestBody GroupPojo pojo) {
         try {
             return new ResponseEntity<>(groupService.updateGroup(pk, pojo), HttpStatus.OK);
@@ -90,6 +98,7 @@ public class GroupController {
     }
 
     @PutMapping("/{groupId}/students/{studentId}")
+    @IsAdmin
     public ResponseEntity<StudentPojo> updateStudent(@PathVariable long groupId, @PathVariable long studentId, @RequestBody StudentPojo pojo) {
         try {
             return new ResponseEntity<>(groupService.updateStudent(groupId, studentId, pojo), HttpStatus.OK);
